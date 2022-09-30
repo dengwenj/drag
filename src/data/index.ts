@@ -1,4 +1,5 @@
 interface IInfo {
+  id: string
   yi: string
   er: string
   san: string
@@ -22,6 +23,7 @@ export const tableData: ITableData[] = [
     type: '1080染缸',
     jt: '1080A',
     info1: {
+      id: '1001',
       yi: 'c:001152-0009',
       er: '经销',
       san: 'UQ-孟加拉工厂',
@@ -34,6 +36,7 @@ export const tableData: ITableData[] = [
       shi: '2022/09/21'
     },
     info2: {
+      id: '1002',
       yi: 'C:000550-0200-R1',
       er: '经销',
       san: 'UNIQLO-晶苑',
@@ -50,6 +53,7 @@ export const tableData: ITableData[] = [
     type: '1080染缸',
     jt: '1080B',
     info1: {
+      id: '1003',
       yi: 'c:001152-0009',
       er: '经销',
       san: 'UQ-孟加拉工厂',
@@ -62,6 +66,7 @@ export const tableData: ITableData[] = [
       shi: '2022/09/21'
     },
     info2: {
+      id: '1004',
       yi: 'C:000550-0200-R1',
       er: '经销',
       san: 'UNIQLO-晶苑',
