@@ -9,8 +9,10 @@ import type { ITableData } from '../../data'
 export default function MyTable() {
   // 初始化必须有一个
   const [containerList, setContainerList] = useState<Record<string, any>[]>([{
+    cellId: '0',
     num: 0,
-    who: ''
+    who: '',
+    color: ''
   }])
 
   const render = (cell: any) => {
@@ -27,7 +29,7 @@ export default function MyTable() {
           >
             {
               cellKeys.map((key, idx) => (
-                <div 
+                key !== 'id' && <div 
                   style={{ 
                     borderBottom: idx === cellKeys.length - 1 ? 0 : '1px solid #eee', 
                     padding: 3 
@@ -74,20 +76,29 @@ export default function MyTable() {
   // 当拖拽到目标位置获取数据（做一系列事情）
   const handleDrop = (e: any) => {
     const data = e.dataTransfer.getData('drag')
-    const { cell: { jiu, san }, id } = JSON.parse(data)
+    const { cell: { jiu, san, id: cellId, qi }, id } = JSON.parse(data)
     
     const element = document.getElementById(id)
-    console.log(element);
     
     element!.innerHTML = '暂无数据'
 
-    setContainerList([
-      ...containerList,
-      {
-        num: jiu,
-        who: san
-      }
-    ])
+    const findIdx = containerList.findIndex((item) => item.color === qi)
+    // 说明没有找到
+    if (findIdx === -1) {
+      setContainerList([...containerList, { cellId, num: jiu, who: san, color: qi }])
+    } else {
+      // 说明找到了
+      const formatContainerList = containerList.map((item, idx) => {
+        if (idx === findIdx) {
+          return {
+            ...item,
+            num: Number(item.num) + Number(jiu)
+          }
+        }
+        return item
+      })
+      setContainerList(formatContainerList)
+    }
   }
 
   // 
