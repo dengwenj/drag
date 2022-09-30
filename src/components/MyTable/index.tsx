@@ -16,6 +16,8 @@ export default function MyTable() {
   }])
 
   const render = (cell: any) => {
+    // console.log(cell); 要想拿到新数据必须要发送请求更新表格
+    
     const cellKeys = Object.keys(cell)
     return  (
       <>
@@ -91,7 +93,7 @@ export default function MyTable() {
         if (idx === findIdx) {
           return {
             ...item,
-            num: Number(item.num) + Number(jiu)
+            num: Number(Number(item.num) + Number(jiu)).toFixed(2)
           }
         }
         return item
@@ -116,9 +118,13 @@ export default function MyTable() {
   const handleContainerDragCell = (e: any) => {
     const data = e.dataTransfer.getData('item')
     const formatData = JSON.parse(data)
-    
-    console.log(formatData);
-    
+
+    const element = document.getElementById(e.target.children[0] ? e.target.children[0].id : e.target.id)
+    element!.innerHTML = `
+      <div>${formatData.cell.num}</div>
+      <div>${formatData.cell.who}</div>
+      <div>${formatData.cell.color}</div>
+    `
   }
   
   /**
