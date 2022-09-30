@@ -62,9 +62,8 @@ export default function MyTable() {
       onDragOver(e: any) {
         e.preventDefault()
       },
-      onDrop: (e: any) => {
-        console.log(e)
-      }
+      // 容器拖入到单元格里做的一系列事情
+      onDrop: handleContainerDragCell
     }
   }
 
@@ -101,9 +100,24 @@ export default function MyTable() {
     }
   }
 
-  // 
+  /**
+   * 拖入到单元格里面
+   */
+  // 拖动容器到单元格里面去
   const handleDragStart = (e: any) => {
-    console.log(e);
+    const findRes = containerList.find((item) => item.cellId === e.target.id)
+    
+    e.dataTransfer.setData('item', JSON.stringify({
+      cell: findRes
+    }))
+  }
+
+  // 容器拖入到单元格里做的一系列事情
+  const handleContainerDragCell = (e: any) => {
+    const data = e.dataTransfer.getData('item')
+    const formatData = JSON.parse(data)
+    
+    console.log(formatData);
     
   }
   
@@ -174,12 +188,14 @@ export default function MyTable() {
             {
               title: '9:00 ~ 12:00',
               align: 'center',
-              key: '2'
+              key: '2',
+              onCell
             },
             {
               title: '14:00 ~ 18:00',
               align: 'center',
-              key: '3'
+              key: '3',
+              onCell
             }
           ]
         },
@@ -191,12 +207,14 @@ export default function MyTable() {
             {
               title: '9:00 ~ 12:00',
               align: 'center',
-              key: '4'
+              key: '4',
+              onCell
             },
             {
               title: '14:00 ~ 18:00',
               align: 'center',
-              key: '5'
+              key: '5',
+              onCell
             }
           ]
         },
@@ -208,12 +226,14 @@ export default function MyTable() {
             {
               title: '9:00 ~ 12:00',
               align: 'center',
-              key: '6'
+              key: '6',
+              onCell
             },
             {
               title: '14:00 ~ 18:00',
               align: 'center',
-              key: '7'
+              key: '7',
+              onCell
             }
           ]
         },
@@ -225,12 +245,14 @@ export default function MyTable() {
             {
               title: '9:00 ~ 12:00',
               align: 'center',
-              key: '8'
+              key: '8',
+              onCell
             },
             {
               title: '14:00 ~ 18:00',
               align: 'center',
-              key: '9'
+              key: '9',
+              onCell
             }
           ]
         }
@@ -256,6 +278,7 @@ export default function MyTable() {
                 <div
                   key={idx}
                   className='c'
+                  id={item.cellId}
                   draggable
                   onDragStart={handleDragStart}
                   onDragOver={handleDragOver}
@@ -268,6 +291,7 @@ export default function MyTable() {
                 <div
                   key={idx}
                   className='c'
+                  id={item.cellId}
                   // draggable
                   onDragStart={handleDragStart}
                   onDragOver={handleDragOver}
@@ -279,15 +303,6 @@ export default function MyTable() {
             )
           })
         }
-        {/* <div 
-          className='c'
-          draggable
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-        >
-          容器
-        </div> */}
       </div>
     </>
   )
