@@ -100,17 +100,20 @@ export default function MyTable() {
             data-cell={JSON.stringify(cell)}
           >
             {
-              cellKeys.map((key, idx) => (
-                key !== 'id' && <div 
+              cellKeys.map((key, idx) => {
+                if (cellKeys.length > 1) {
+                  return key !== 'id' && (<div 
                   style={{ 
-                    borderBottom: idx === cellKeys.length - 1 ? 0 : '1px solid #eee', 
-                    padding: 3 
-                  }}
-                  key={key}
-                >
-                  {cell[key]}
-                </div>
-              ))
+                      borderBottom: idx === cellKeys.length - 1 ? 0 : '1px solid #eee', 
+                      padding: 3 
+                    }}
+                    key={key}
+                  >
+                    {cell[key]}
+                  </div>)
+                }
+                return <div>暂无数据</div>
+              })
             }
           </div>
         }
@@ -537,6 +540,7 @@ export default function MyTable() {
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={handleDrop}
                 >
+                  <div>容器</div>
                   <div>{item.num} KG</div>
                   <div>{item.who}</div>
                 </div>
