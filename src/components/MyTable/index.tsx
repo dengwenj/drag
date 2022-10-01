@@ -301,6 +301,17 @@ export default function MyTable() {
       return item
     })
     setContainerList(res)
+
+    /**
+     * 当容器拖动到单元格里
+     * 1、拖动到的那个单元格是不是空数据（直接拖入到里面即可）
+     * 2、拖动到的单元格里面有数据（判断这个单元格里面是不是满载的）是满载的不允许了，不是就允许
+     */
+    // e.target 是你当前点击的元素
+    // e.currentTarget 是你绑定事件的元素
+    const ele = e.currentTarget.children[0] ? e.currentTarget.children[0] : e.currentTarget
+    const formatCell = JSON.parse(ele.getAttribute('data-cell'))
+    console.log(formatCell.jiu); // 这个量肯定要传给后端的，然后再更新数据
   }
   
   /**
