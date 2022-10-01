@@ -14,8 +14,9 @@ interface IInfo {
 export interface ITableData {
   type: string
   jt: string
-  info1: IInfo,
-  info2: IInfo
+  info1?: IInfo,
+  info2?: IInfo,
+  info3?: IInfo
 }
 
 export const tableData: ITableData[] = [
