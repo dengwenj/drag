@@ -294,7 +294,13 @@ export default function MyTable() {
     ])
 
     // 容器里的数据也要变化 发送请求
-    setContainerList([{cellId: '1001', num: '', who: '', color: ''}])
+    const res = containerList.map((item) => {
+      if (item.cellId === formatData.cell.cellId) {
+        return {}
+      }
+      return item
+    })
+    setContainerList(res)
   }
   
   /**
